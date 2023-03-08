@@ -1,9 +1,8 @@
-# Group 5 Project
-CIS371, Winter 2023, Term project  
+# CIS371, Winter 2023, Term project  
 
 
 
-We are to make a 2D platformer, using object-oriented design patterns to easily scale gameplay variety.  
+GOAL: 2D platformer, using object-oriented design patterns to easily scale gameplay variety.  
 
 First elaboration design goals:  
 - 2D movement + building climbing.  
@@ -17,10 +16,7 @@ Second elaboration goals:
   + Hunt civilians.  
 - Menus, start + pause.  
 - Gameplay loop organizer.  
-  
-Third (stretch) goals:  
-- Second player.  
-- Adaptive splitscreen.  
+ 
   
 ## schedule  
 Deliverable  | Time
