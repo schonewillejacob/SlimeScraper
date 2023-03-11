@@ -26,21 +26,33 @@ namespace Platformer.Mechanics
         /// Initial jump velocity at the start of a jump.
         /// </summary>
         public float jumpTakeOffSpeed = 7;
-
+        bool jump;
+        Vector2 move;
+        
+        
         public JumpState jumpState = JumpState.Grounded;
         private bool stopJump;
+        public bool controlEnabled = true;
+        
         /*internal new*/ public Collider2D collider2d;
         /*internal new*/ public AudioSource audioSource;
         public Health health;
-        public bool controlEnabled = true;
 
-        bool jump;
-        Vector2 move;
+        
         SpriteRenderer spriteRenderer;
         internal Animator animator;
         readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
 
         public Bounds Bounds => collider2d.bounds;
+
+        public enum JumpState
+        {
+            Grounded,
+            PrepareToJump,
+            Jumping,
+            InFlight,
+            Landed
+        }
 
         void Awake()
         {
@@ -129,13 +141,6 @@ namespace Platformer.Mechanics
             targetVelocity = move * maxSpeed;
         }
 
-        public enum JumpState
-        {
-            Grounded,
-            PrepareToJump,
-            Jumping,
-            InFlight,
-            Landed
-        }
+
     }
 }
