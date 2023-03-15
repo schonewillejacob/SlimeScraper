@@ -17,7 +17,7 @@ First elaboration design goals:
 - Building. Generate from tileset & logic. Calculate Size of hitbox for slimes.   
 - Civilian. Must get hit with ladders.   
 - Slimes.  	Collider with
-  - convert ("clean") wall textures.  						[TILE SIZE: 64px]
+  - convert ("clean") wall textures.  						[TILE SIZE: 0.4units]
   - Created from the rain (spawn high).  
   - Hunt civilians.  
 
