@@ -3,19 +3,27 @@ CIS371, Winter 2023, Term project
 
 
 
-We are to make a 2D platformer, using object-oriented design patterns to easily scale gameplay variety.  
+2D arcade game, using object-oriented design patterns to scale gameplay difficulty and variety.  
+
+
+
+Reuse is a great benefit of OOAD, so take advantage of community resources. This project was built on top of this tutorial series.
+The readme and support material are linked within the "documentation" folder.
+https://assetstore.unity.com/packages/templates/platformer-microgame-151055
 
 First elaboration design goals:  
-- 2D movement + building climbing.  
-- Civilian rescue system.  
-- Spriting and animation for player.  
-  
+- Player. 	2D movement, additonal animation for player.  
+	- Ladder Throwing  
+- Building. Generate from tileset & logic. Calculate Size of hitbox for slimes.   
+- Civilian. Must get hit with ladders.   
+- Slimes.  	Collider with
+  - convert ("clean") wall textures.  						[TILE SIZE: 64px]
+  - Created from the rain (spawn high).  
+  - Hunt civilians.  
+
+
 Second elaboration goals:  
-- Slimes:  
-  + convert ("clean") wall textures.  
-  + Created from the rain (spawn high).  
-  + Hunt civilians.  
-- Menus, start + pause.  
+- Menus, start & pause.  
 - Gameplay loop organizer.  
   
 Third (stretch) goals:  
