@@ -1,9 +1,8 @@
-# Group 5 Project
-CIS371, Winter 2023, Term project  
+# CIS371, Winter 2023, Term project  
 
 
 
-2D arcade game, using object-oriented design patterns to scale gameplay difficulty and variety.  
+GOAL:2D arcade game, using object-oriented design patterns to scale gameplay difficulty and variety.  
 
 
 
@@ -27,10 +26,7 @@ First elaboration design goals:
 Second elaboration goals:  
 - Menus, start & pause.  
 - Gameplay loop organizer.  
-  
-Third (stretch) goals:  
-- Second player.  
-- Adaptive splitscreen.  
+ 
   
 ## schedule  
 Deliverable  | Time
