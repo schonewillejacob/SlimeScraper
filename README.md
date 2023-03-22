@@ -26,7 +26,7 @@ Second elaboration goals:
 Deliverable  | Time
 ------------- | -------------
 ~~Proposal~~ | ~~February 1, 2023, 14:30~~
-~~Milestone Report One | March 1, 2023, 14:30~~  (missed, poor circumstance)
+~~Milestone Report One~~ | ~~March 1, 2023, 14:30~~  (missed, poor circumstance)
 Milestone Report Two | March 29, 2023, 14:30 (in progress)
 Final Report Due & Presentation | April 11, 2023, 14:30
 
