@@ -2,16 +2,10 @@
 
 
 
-GOAL:2D arcade game, using object-oriented design patterns to scale gameplay difficulty and variety.  
+GOAL: 2D arcade game, using object-oriented design patterns to scale gameplay difficulty and variety.   
+Built within the godot engine. https://godotengine.org/   
 
 
-
-Reuse is a great benefit of OOAD, so take advantage of community resources. This project was built on top of this tutorial series.
-The readme and support material are linked within the "documentation" folder.
-https://assetstore.unity.com/packages/templates/platformer-microgame-151055
-
-
-[TILE SIZE: 0.4units]
 First elaboration design goals:  
 - Player. 	2D movement, additonal animation for player.  
 	- Ladder Throwing  
@@ -32,8 +26,7 @@ Second elaboration goals:
 Deliverable  | Time
 ------------- | -------------
 ~~Proposal~~ | ~~February 1, 2023, 14:30~~
-Milestone Report One | March 1, 2023, 14:30  (In progress)
-Milestone Report Two | March 29, 2023, 14:30
-Final Report | April 11, 2023, 14:30
-Final Representation | April 11, 2023, 14:30
-Final Code/Prototype | April 11, 2023, 14:30
+~~Milestone Report One | March 1, 2023, 14:30~~  (missed, poor circumstance)
+Milestone Report Two | March 29, 2023, 14:30 (in progress)
+Final Report Due & Presentation | April 11, 2023, 14:30
+
