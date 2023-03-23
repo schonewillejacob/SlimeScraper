@@ -26,42 +26,48 @@ var state = States.Idle
 func _physics_process(delta):
 	process_ui()
 	process_movement(delta)
-	
-	func process_collisions():
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i)
-#		print("I collided with ", collision.get_collider().name)
+	var slide_count = get_slide_collision_count()
+	if slide_count:
+		process_collision(slide_count)
 
 
 func process_ui():
-	if state == States.Recovering:
+	if state == States.Recovering: # Guards against movement if state isn't right
 		return
-	
 	x_axis = Input.get_axis("user_left", "user_right")
 	jump = bool(Input.is_action_just_pressed("user_up") && is_on_floor())
-	
-#	Prevents input after being hit.
-	
-
 
 
 func process_movement(delta):
 #	Gravity.
 	velocity.y += GRAVITY * delta
 #	Jumping.
-	if Input.is_action_just_pressed("user_up") and is_on_floor():
-			velocity.y = JUMP_HEIGHT * int(jump)
+	if jump and is_on_floor():
+		velocity.y = JUMP_HEIGHT
 #	Lateral speed.
 	velocity.x = x_axis * SPEED
 #	Move
 	move_and_slide()
 
-func bounce(input : Vector2):
-	velocity.bounce(input)
 
-func process_collisions():
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i)
+func process_collision(slide_count):
+	var enemy_list = get_tree().get_nodes_in_group("Enemy")
+	
+#	Hit enemy.
+	for i in range(slide_count):
+		var slide_collider = get_slide_collision(i).get_collider()
 		
-		var col_sign = sign(transform.orign.x - i.transform.origin.x)
-		bounce(Vector2(col_sign * i.STRENGTH, -5))
+#		Guard Clause.
+		if slide_collider not in enemy_list:
+			return
+			
+#		Determine outcome.
+		if (slide_collider.transform.origin.y - transform.origin.y) > 0:
+			bounce()
+			slide_collider.die()
+		else:
+			pass
+
+
+func bounce():
+	velocity.y = JUMP_HEIGHT * 2

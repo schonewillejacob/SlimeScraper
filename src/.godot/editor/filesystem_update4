@@ -1,13 +1,8 @@
 res://default_env.tres
-res://Data/Scenes/Slime.tscn
-res://Data/Scripts/Slime.gd
-res://Data/Scenes/Civilian.tscn
-res://Data/Scripts/GameController.gd
 res://Data/Scenes/Cloud.tscn
 res://Data/Main.tscn
 res://Data/Scenes/PlayArea.tscn
+res://Data/Scenes/Slime.tscn
+res://Data/Scenes/Building.tscn
 res://Data/Scenes/Player.tscn
 res://Data/Scripts/Player.gd
-res://Data/Materials/slippery.tres
-res://Data/Scenes/Building.tscn
-res://Data/Scripts/Building.gd
