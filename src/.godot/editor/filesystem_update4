@@ -1,5 +1,8 @@
 res://default_env.tres
+res://Scenes/Slime.tscn
+res://Scripts/Slime.gd
 res://Scenes/PlayArea.tscn
-res://Scripts/GameController.gd
 res://Scenes/Player.tscn
-res://Scripts/Player.gd
+res://Scenes/Building.tscn
+res://Scenes/Floor.tscn
+res://Scripts/GameController.gd
