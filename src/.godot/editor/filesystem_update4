@@ -1,8 +1,7 @@
 res://default_env.tres
+res://Data/Scenes/PlayArea.tscn
 res://Data/Scenes/Cloud.tscn
 res://Data/Main.tscn
-res://Data/Scenes/PlayArea.tscn
 res://Data/Scenes/Slime.tscn
 res://Data/Scenes/Building.tscn
 res://Data/Scenes/Player.tscn
-res://Data/Scripts/Player.gd

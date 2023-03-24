@@ -1,11 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6loarmpx1hpt"]
+[gd_scene load_steps=6 format=3 uid="uid://c6loarmpx1hpt"]
 
 [ext_resource type="Script" path="res://Data/Scripts/Building.gd" id="1_cbgk2"]
+[ext_resource type="Texture2D" uid="uid://bloqfccs2d3jn" path="res://Assets/Graphics/Tiles/Building.png" id="2_jvup3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gnsfx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8j8g"]
+texture = ExtResource("2_jvup3")
+texture_region_size = Vector2i(32, 32)
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+2:0/0 = 0
+1:0/0 = 0
+0:0/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_cqxgt"]
+sources/0 = SubResource("TileSetAtlasSource_g8j8g")
 
 [node name="Building" type="Area2D"]
 script = ExtResource("1_cbgk2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_gnsfx")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_cqxgt")
+cell_quadrant_size = 32
+format = 2
