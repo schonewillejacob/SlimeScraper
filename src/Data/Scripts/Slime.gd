@@ -23,9 +23,7 @@ var state = States.Falling
 
 
 
-func _ready():
-#	Give random angular momentum, just for fun.
-	small_rotation()
+#func _ready():
 
 func _physics_process(_delta):
 	process_movement()
@@ -50,7 +48,6 @@ func process_movement():
 #				Wait for 1.0s, then...
 				await get_tree().create_timer(1.0).timeout
 				var direction = STRENGTH*20 * Vector2(sign(targetX - transform.origin.x), -1)
-				small_rotation()
 				apply_central_impulse(direction)
 				
 #				Wait for 0.2s, then...
@@ -60,10 +57,6 @@ func process_movement():
 func die():
 	queue_free()
 
-
-func small_rotation() -> void:
-	#	Range[-32, 32], pseudorandom
-	angular_velocity = (STRENGTH * randf()) - (STRENGTH / 2)
 
 
 func get_strength():
