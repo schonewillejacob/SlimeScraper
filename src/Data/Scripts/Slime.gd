@@ -9,7 +9,7 @@ const STRENGTH : float = 16.0
 var flagSpawned : bool = true
 var flagJumping : bool = true
 
-# This is the midpoint of the screen.
+# This is, by default, the midpoint of the screen.
 @onready var targetX : float = get_viewport_rect().size.x / 2 
 
 enum States {
@@ -23,7 +23,8 @@ var state = States.Falling
 
 
 
-#func _ready():
+func _ready():
+	GameController.building.body_entered.connect(hit_building)
 
 func _physics_process(_delta):
 	process_movement()
@@ -41,7 +42,7 @@ func process_movement():
 					state = States.Ground
 			
 		States.Ground:
-#			Perform jump, change state, prevent multiple jump impulses.
+#			Perform jump, change state, prevent multiple jump impulses w/ flag.
 			if flagJumping:
 				flagJumping = false
 				
@@ -54,10 +55,16 @@ func process_movement():
 				await get_tree().create_timer(0.2).timeout
 				flagJumping = true
 				state = States.Falling
+
+
 func die():
-	queue_free()
+#	queue_free()
+	pass
 
 
-
-func get_strength():
-	return STRENGTH
+func hit_building(_body):
+	freeze_mode = FREEZE_MODE_STATIC
+	freeze = true
+	collision_layer = 4
+	state = States.Attached
+	freeze = false	

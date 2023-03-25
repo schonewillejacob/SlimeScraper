@@ -42,6 +42,8 @@ func _physics_process(delta):
 
 
 func process_ui():
+	if(Input.is_action_just_pressed("user_decline")): get_tree().quit()
+	
 	if state == States.Recovering: # Guards against movement if state isn't right
 		return
 	x_axis = Input.get_axis("user_left", "user_right")
@@ -64,22 +66,37 @@ func process_collision(slide_count):
 	var enemy_list = get_tree().get_nodes_in_group("Enemy")
 #	Hit enemy.
 	for i in range(slide_count):
+#		Guard Clauses.
 		var slide_collider = get_slide_collision(i).get_collider()
-#		Guard Clause.
 		if slide_collider not in enemy_list:
 			return
+		if state == States.Recovering:
+			return
+			
 #		Determine outcome.
 		if (slide_collider.transform.origin.y - transform.origin.y) > 0:
 			bounce()
 			slide_collider.die()
 		else:
-			pass
+			bounce_direction(Vector2( sign(slide_collider.transform.origin.x - transform.origin.x), -1))#left or right?	
+			x_axis = 0
+			state = States.Recovering
+			$Timer.start()
+			print("bounced")
+
 
 func bounce():
 	velocity.y = JUMP_HEIGHT * 2
+
+func bounce_direction(_direction : Vector2):
+	velocity = JUMP_HEIGHT * _direction.normalized()
 
 func wrap_around(left : int, right : int):
 	if transform.origin.x > right:
 		transform.origin.x = left
 	elif transform.origin.x < left:
 		transform.origin.x = right
+
+
+func _on_timer_timeout():
+	state = States.Idle

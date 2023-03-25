@@ -1,7 +1,10 @@
 # This object coordinates the game, and holds the diffculty data & alogrithms associated with it.
+# It's Autoloaded, and needs "space to breathe"
 extends Node
 
-var Difficulty : int
+var difficulty : int = 0
+var player : CharacterBody2D
+var building : Area2D
 
 func _ready():
 	randomize()

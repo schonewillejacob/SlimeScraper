@@ -1,11 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://dhuuw76udngo3"]
+[gd_scene load_steps=13 format=3 uid="uid://dhuuw76udngo3"]
 
-[ext_resource type="Script" path="res://Data/Scripts/GameController.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://dlea8lco0wv1f" path="res://Data/Scenes/Player.tscn" id="2_tilqw"]
+[ext_resource type="PackedScene" uid="uid://c6loarmpx1hpt" path="res://Data/Scenes/Building.tscn" id="3_cthy5"]
 [ext_resource type="PackedScene" uid="uid://eh3ftx371nv6" path="res://Data/Scenes/Floor.tscn" id="3_iqxc3"]
 [ext_resource type="Texture2D" uid="uid://bloqfccs2d3jn" path="res://Assets/Graphics/Tiles/Building.png" id="4_u36e3"]
 [ext_resource type="PackedScene" uid="uid://bkewqhcwgs58t" path="res://Data/Scenes/Slime.tscn" id="4_w02om"]
+[ext_resource type="AudioStream" uid="uid://dw0xjckl7mtfs" path="res://Assets/Audio/Slime.mp3" id="5_lbdea"]
 [ext_resource type="Script" path="res://Data/Scripts/CameraCarrier2D.gd" id="6_f53lg"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_s15ex"]
+tile_data = PackedInt32Array(0, 131072, 4, 65536, 131072, 5, 1, 196608, 4, 65537, 196608, 5)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_f8i25"]
+tile_data = PackedInt32Array(0, 0, 4, 65536, 0, 5, 1, 65536, 4, 65537, 65536, 5)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_drqxc"]
+tile_data = PackedInt32Array(0, 262144, 4, 65536, 262144, 5, 1, 327680, 4, 65537, 327680, 5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tqjs1"]
 texture = ExtResource("4_u36e3")
@@ -17,40 +27,51 @@ texture_region_size = Vector2i(32, 32)
 1:1/0 = 0
 2:1/0 = 0
 3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
 0:3/0 = 0
 1:3/0 = 0
 2:3/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+4:2/0 = 0
+0:4/next_alternative_id = 2
+0:4/0 = 0
+1:4/next_alternative_id = 2
+1:4/0 = 0
+1:5/next_alternative_id = 2
+1:5/0 = 0
+0:5/next_alternative_id = 2
+0:5/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+3:5/0 = 0
+2:5/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+4:5/0 = 0
+3:2/0 = 0
+3:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_v0kop"]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_tqjs1")
+pattern_0 = SubResource("TileMapPattern_s15ex")
+pattern_1 = SubResource("TileMapPattern_f8i25")
+pattern_2 = SubResource("TileMapPattern_drqxc")
 
 [node name="PlayArea" type="Node2D"]
 
-[node name="CameraCarrier2D" type="Camera2D" parent="."]
-position = Vector2(560, 511)
-script = ExtResource("6_f53lg")
-player_path = NodePath("../Player")
+[node name="stage" type="Node" parent="."]
 
-[node name="GameController" type="Node" parent="."]
-script = ExtResource("1")
+[node name="Building" parent="stage" instance=ExtResource("3_cthy5")]
+position = Vector2(566, 478)
 
-[node name="Player" parent="." instance=ExtResource("2_tilqw")]
-position = Vector2(571, 488)
-camera_path = NodePath("../CameraCarrier2D")
-
-[node name="env" type="Node" parent="."]
-
-[node name="Floor" parent="env" instance=ExtResource("3_iqxc3")]
+[node name="Floor" parent="stage" instance=ExtResource("3_iqxc3")]
 position = Vector2(570, 1184)
 scale = Vector2(20, 20)
 
-[node name="TileMap" type="TileMap" parent="env"]
+[node name="BaseMap" type="TileMap" parent="stage"]
 position = Vector2(-32, 0)
 tile_set = SubResource("TileSet_v0kop")
 format = 2
@@ -76,7 +97,7 @@ layer_3/modulate = Color(1, 1, 1, 1)
 layer_3/y_sort_enabled = false
 layer_3/y_sort_origin = 0
 layer_3/z_index = -1
-layer_3/tile_data = PackedInt32Array()
+layer_3/tile_data = PackedInt32Array(983060, 262144, 4, 1048596, 262144, 5, 983061, 327680, 4, 1048597, 327680, 5, 786452, 131072, 4, 851988, 131072, 5, 786453, 196608, 4, 851989, 196608, 5, 786447, 0, 4, 851983, 0, 5, 786448, 65536, 4, 851984, 65536, 5, 393231, 0, 4, 458767, 0, 5, 393232, 65536, 4, 458768, 65536, 5, 393236, 0, 4, 458772, 0, 5, 393237, 65536, 4, 458773, 65536, 5)
 layer_4/name = "Foreground"
 layer_4/enabled = true
 layer_4/modulate = Color(1, 1, 1, 1)
@@ -84,6 +105,21 @@ layer_4/y_sort_enabled = false
 layer_4/y_sort_origin = 0
 layer_4/z_index = 1
 layer_4/tile_data = PackedInt32Array(1048589, 196608, 1, 1048590, 262144, 1, 1048591, 262144, 1, 1048592, 262144, 1, 1048593, 327680, 1)
+
+[node name="Musicbox" type="AudioStreamPlayer" parent="stage"]
+stream = ExtResource("5_lbdea")
+autoplay = true
+
+[node name="player" type="Node" parent="."]
+
+[node name="CameraCarrier2D" type="Camera2D" parent="player"]
+position = Vector2(557, 251)
+script = ExtResource("6_f53lg")
+playerPath = NodePath("../Player")
+
+[node name="Player" parent="player" instance=ExtResource("2_tilqw")]
+position = Vector2(571, 400)
+camera_path = NodePath("../CameraCarrier2D")
 
 [node name="enemies" type="Node" parent="."]
 
