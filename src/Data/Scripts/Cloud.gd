@@ -1,11 +1,24 @@
 extends Node2D
 
+@onready var sprite : Sprite2D = $sprite
+@onready var spawnTimer : Sprite2D = $spawn_another
+@onready var controller = $GameController
 
-# Called when the node enters the scene tree for the first time.
+var P : float
+var 
+
 func _ready():
-	pass # Replace with function body.
+#	50/50 chance to flip xscale
+	var chance = randi()%2
+	if (chance):
+		sprite.scale = Vector2(-1,0)
+	
+	spawnTimer.start
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
+	
 	pass
+
+func spawn():
+	spawnTimer.start
+	

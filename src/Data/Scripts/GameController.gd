@@ -2,7 +2,7 @@
 # It's Autoloaded, and needs "space to breathe"
 extends Node
 
-var difficulty : int = 0
+var difficulty : int = 1
 var player : CharacterBody2D
 var building : Area2D
 

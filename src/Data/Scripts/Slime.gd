@@ -58,7 +58,7 @@ func process_movement():
 
 
 func die():
-#	queue_free()
+	queue_free()
 	pass
 
 

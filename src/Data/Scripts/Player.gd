@@ -32,18 +32,20 @@ var state = States.Idle
 
 func _physics_process(delta):
 	process_ui()
-	
 	process_movement(delta)
+	
 	var slide_count = get_slide_collision_count()
 	if slide_count:
 		process_collision(slide_count)
-
+	
 	wrap_around(wrap_xpos - wrap_width, wrap_xpos + wrap_width)
 
 
 func process_ui():
-	if(Input.is_action_just_pressed("user_decline")): get_tree().quit()
+#	Menuing
+	if(Input.is_action_just_pressed("user_decline")): get_tree().quit() #Quit out
 	
+#	Movement
 	if state == States.Recovering: # Guards against movement if state isn't right
 		return
 	x_axis = Input.get_axis("user_left", "user_right")
@@ -55,41 +57,44 @@ func process_movement(delta):
 	velocity.y += GRAVITY * delta
 #	Jumping.
 	if jump and is_on_floor():
+		state = States.Jump
 		velocity.y = JUMP_HEIGHT
 #	Lateral speed.
-	velocity.x = x_axis * SPEED
+	if state != States.Recovering:
+		velocity.x = x_axis * SPEED
 #	Move
 	move_and_slide()
 
 
 func process_collision(slide_count):
 	var enemy_list = get_tree().get_nodes_in_group("Enemy")
-#	Hit enemy.
+#	Check for hitting an enemy.
 	for i in range(slide_count):
-#		Guard Clauses.
 		var slide_collider = get_slide_collision(i).get_collider()
-		if slide_collider not in enemy_list:
+		
+#		Guard Clauses.
+		if state == States.Recovering: return
+		if slide_collider not in enemy_list: 
+			state = States.Idle
 			return
-		if state == States.Recovering:
-			return
-			
+		
 #		Determine outcome.
 		if (slide_collider.transform.origin.y - transform.origin.y) > 0:
 			bounce()
 			slide_collider.die()
 		else:
-			bounce_direction(Vector2( sign(slide_collider.transform.origin.x - transform.origin.x), -1))#left or right?	
-			x_axis = 0
 			state = States.Recovering
-			$Timer.start()
+			bounce_direction(Vector2( sign(slide_collider.transform.origin.x - transform.origin.x), -1))#left or right?	
+			$recovery_timer.start()
 			print("bounced")
 
 
 func bounce():
-	velocity.y = JUMP_HEIGHT * 2
+	velocity.y = JUMP_HEIGHT * 1.5
 
-func bounce_direction(_direction : Vector2):
-	velocity = JUMP_HEIGHT * _direction.normalized()
+func bounce_direction(hit_direction : Vector2):
+	print((-JUMP_HEIGHT) * hit_direction.normalized())
+	velocity = (-JUMP_HEIGHT) * hit_direction.normalized()
 
 func wrap_around(left : int, right : int):
 	if transform.origin.x > right:
@@ -98,5 +103,5 @@ func wrap_around(left : int, right : int):
 		transform.origin.x = right
 
 
-func _on_timer_timeout():
+func recovery_timeout():
 	state = States.Idle
