@@ -50,6 +50,9 @@ func process_ui():
 		return
 	x_axis = Input.get_axis("user_left", "user_right")
 	jump = bool(Input.is_action_just_pressed("user_up") && is_on_floor())
+	
+#	Drop ladder
+	
 
 
 func process_movement(delta):
@@ -83,9 +86,10 @@ func process_collision(slide_count):
 			bounce()
 			slide_collider.die()
 		else:
-			state = States.Recovering
-			bounce_direction(Vector2( sign(slide_collider.transform.origin.x - transform.origin.x), -1))#left or right?	
 			$recovery_timer.start()
+			state = States.Recovering
+			bounce_direction(Vector2( sign(transform.origin.x - slide_collider.transform.origin.x), -1))#left or right?	
+			slide_collider.apply_impulse(Vector2(randfn(0.0,1.0), -300))
 			print("bounced")
 
 

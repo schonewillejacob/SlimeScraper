@@ -8,3 +8,4 @@ var building : Area2D
 
 func _ready():
 	randomize()
+	
