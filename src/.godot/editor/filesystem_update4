@@ -1,13 +1,2 @@
 res://default_env.tres
 res://Data/Main.tscn
-res://Data/Scenes/Building.tscn
-res://Data/Scripts/Building.gd
-res://Data/Scripts/StartMenu.gd
-res://Data/Scenes/PlayArea.tscn
-res://Data/Scripts/Slime.gd
-res://Data/Scenes/Player.tscn
-res://Data/Scenes/Slime.tscn
-res://Data/Scenes/Cloud.tscn
-res://Data/Scripts/Cloud.gd
-res://Data/Scripts/Player.gd
-res://Data/Scripts/GameController.gd
