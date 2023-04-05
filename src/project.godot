@@ -11,9 +11,18 @@ config_version=5
 [application]
 
 config/name="SlimeScraper"
-run/main_scene="res://Scenes/Root.tscn"
+run/main_scene="res://Data/Main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
+
+[autoload]
+
+GameController="*res://Data/Scripts/GameController.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=800
 
 [input]
 
@@ -95,7 +104,9 @@ user_decline={
 
 2d_physics/layer_1="Terrain"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="Enemies"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Building"
+2d_physics/layer_5="Civilian"
 
 [physics]
 
