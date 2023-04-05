@@ -9,6 +9,8 @@ const STRENGTH : float = 16.0
 var flagSpawned : bool = true
 var flagJumping : bool = true
 
+var debugcount = 0
+
 # This is, by default, the midpoint of the screen.
 @onready var targetX : float = get_viewport_rect().size.x / 2 
 
@@ -19,12 +21,12 @@ enum States {
 	Attached,
 	Attacking
 }
-var state = States.Falling
+var state : States
 
 
-
-func _ready():
-	GameController.building.body_entered.connect(hit_building)
+func _init():
+	apply_central_impulse(RAIN_DIRECTION * STRENGTH * 10)
+	state = States.Falling
 
 func _physics_process(_delta):
 	process_movement()
@@ -63,8 +65,7 @@ func die():
 	pass
 
 
-func hit_building(_body):
-	print("hit building")
-	collision_layer = 4
-	sleeping = true
+func hit_building():
+	set_collision_layer(4)
+	get_collision_layer_value(4)
 	state = States.Attached

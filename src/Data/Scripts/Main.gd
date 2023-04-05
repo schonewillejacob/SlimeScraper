@@ -1,13 +1,18 @@
 extends Node2D
-
 # This scene contains the main menu.
+
+var save_path = "user://highscore.save"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_game()
+	load_score()
 
 
-func start_game():
-	print("starting new game...")
-	get_tree().change_scene_to_file("res://Data/Scenes/PlayArea.tscn")
+
+
+func load_score():
+	if FileAccess.file_exists(save_path):
+		var f = FileAccess.open(save_path, FileAccess.READ)
+		var content = f.get_as_text()
+		f.close()
