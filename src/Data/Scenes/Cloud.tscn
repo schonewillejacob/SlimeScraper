@@ -11,5 +11,6 @@ position = Vector2(1, -18)
 texture = ExtResource("2_rtcqr")
 
 [node name="spawn_another" type="Timer" parent="."]
+autostart = true
 
 [connection signal="timeout" from="spawn_another" to="." method="spawn"]

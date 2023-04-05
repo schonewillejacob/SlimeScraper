@@ -16,6 +16,7 @@ texture = ExtResource("2_coyoq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ogar8")
+debug_color = Color(0.145098, 0.54902, 0, 0.419608)
 
 [node name="recovery_timer" type="Timer" parent="."]
 wait_time = 0.66

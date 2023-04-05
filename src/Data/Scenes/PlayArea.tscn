@@ -1,19 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhuuw76udngo3"]
+[gd_scene load_steps=9 format=3 uid="uid://dhuuw76udngo3"]
 
 [ext_resource type="PackedScene" uid="uid://dlea8lco0wv1f" path="res://Data/Scenes/Player.tscn" id="2_tilqw"]
 [ext_resource type="PackedScene" uid="uid://c6loarmpx1hpt" path="res://Data/Scenes/Building.tscn" id="3_cthy5"]
 [ext_resource type="PackedScene" uid="uid://eh3ftx371nv6" path="res://Data/Scenes/Floor.tscn" id="3_iqxc3"]
 [ext_resource type="Script" path="res://Data/Scripts/Musicbox.gd" id="4_80uag"]
 [ext_resource type="PackedScene" uid="uid://bkewqhcwgs58t" path="res://Data/Scenes/Slime.tscn" id="4_w02om"]
+[ext_resource type="PackedScene" uid="uid://c5v5faouhqdpa" path="res://Data/Scenes/Cloud.tscn" id="5_g2g3w"]
 [ext_resource type="AudioStream" uid="uid://dw0xjckl7mtfs" path="res://Assets/Audio/Slime.mp3" id="5_lbdea"]
 [ext_resource type="Script" path="res://Data/Scripts/CameraCarrier2D.gd" id="6_f53lg"]
 
 [node name="PlayArea" type="Node2D"]
 
+[node name="Cloud" parent="." instance=ExtResource("5_g2g3w")]
+position = Vector2(558, 183)
+
 [node name="stage" type="Node" parent="."]
 
 [node name="Building" parent="stage" instance=ExtResource("3_cthy5")]
-position = Vector2(576, 528)
+position = Vector2(568, 512)
 
 [node name="Floor" parent="stage" instance=ExtResource("3_iqxc3")]
 position = Vector2(570, 1184)
@@ -27,7 +31,7 @@ script = ExtResource("4_80uag")
 [node name="player" type="Node" parent="."]
 
 [node name="CameraCarrier2D" type="Camera2D" parent="player"]
-position = Vector2(557, 251)
+position = Vector2(557, 400)
 script = ExtResource("6_f53lg")
 playerPath = NodePath("../Player")
 
@@ -38,7 +42,7 @@ camera_path = NodePath("../CameraCarrier2D")
 [node name="enemies" type="Node" parent="."]
 
 [node name="Slime" parent="enemies" instance=ExtResource("4_w02om")]
-position = Vector2(481, 323)
+position = Vector2(293, 439)
 
 [node name="Slime2" parent="enemies" instance=ExtResource("4_w02om")]
-position = Vector2(920, 221)
+position = Vector2(1111, 454)

@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var camera_path : NodePath
 @onready var camera = get_node(camera_path)
 @onready var wrap_width = (get_viewport_rect().size.x / 2) + 32 # This value is equal to the width of the player.
-@onready var wrap_xpos = camera.transform.origin.x
+@onready var wrap_xpos = camera.get_global_position().x
 
 
 # Movement
@@ -43,7 +43,8 @@ func _physics_process(delta):
 
 func process_ui():
 #	Menuing
-	if(Input.is_action_just_pressed("user_decline")): get_tree().quit() #Quit out
+	if(Input.is_action_just_pressed("user_decline")):
+		get_tree().change_scene_to_file("res://Data/Main.tscn")
 	
 #	Movement
 	if state == States.Recovering: # Guards against movement if state isn't right
@@ -70,41 +71,36 @@ func process_movement(delta):
 
 
 func process_collision(slide_count):
-	var enemy_list = get_tree().get_nodes_in_group("Enemy")
+#	print(str(GameController.enemy_list)+"\n")
 #	Check for hitting an enemy.
+	if state == States.Recovering: return
+
 	for i in range(slide_count):
 		var slide_collider = get_slide_collision(i).get_collider()
-		
-#		Guard Clauses.
-		if state == States.Recovering: return
-		if slide_collider not in enemy_list: 
-			state = States.Idle
-			return
-		
+#		Guard Clause.
+		if !slide_collider.is_in_group("Enemy"): break
 #		Determine outcome.
-		if (slide_collider.transform.origin.y - transform.origin.y) > 0:
+		if (slide_collider.get_global_position().y - get_global_position().y) > 0:
 			bounce()
 			slide_collider.die()
 		else:
 			$recovery_timer.start()
 			state = States.Recovering
-			bounce_direction(Vector2( sign(transform.origin.x - slide_collider.transform.origin.x), -1))#left or right?	
+			bounce_direction(Vector2( sign(get_global_position().x - slide_collider.get_global_position().x), -1))#left or right?	
 			slide_collider.apply_impulse(Vector2(randfn(0.0,1.0), -300))
-			print("bounced")
 
 
 func bounce():
 	velocity.y = JUMP_HEIGHT * 1.5
 
 func bounce_direction(hit_direction : Vector2):
-	print((-JUMP_HEIGHT) * hit_direction.normalized())
 	velocity = (-JUMP_HEIGHT) * hit_direction.normalized()
 
 func wrap_around(left : int, right : int):
-	if transform.origin.x > right:
-		transform.origin.x = left
-	elif transform.origin.x < left:
-		transform.origin.x = right
+	if get_global_position().x > right:
+		set_position(Vector2(left, get_global_position().y)) 
+	elif get_global_position().x < left:
+		set_position(Vector2(right, get_global_position().y))
 
 
 func recovery_timeout():
