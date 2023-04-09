@@ -22,10 +22,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = 683.0
-offset_right = 275.0
-offset_bottom = 784.0
+offset_left = 3.0
+offset_top = 855.0
+offset_right = 277.0
+offset_bottom = 956.0
 grow_vertical = 0
 scale = Vector2(0.994902, 1.00848)
 

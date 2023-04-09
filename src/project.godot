@@ -21,8 +21,8 @@ GameController="*res://Data/Scripts/GameController.gd"
 
 [display]
 
-window/size/viewport_width=720
-window/size/viewport_height=800
+window/size/viewport_width=540
+window/size/viewport_height=960
 
 [input]
 

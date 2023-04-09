@@ -10,7 +10,7 @@ script = ExtResource("1_ovjl3")
 position = Vector2(1, -18)
 texture = ExtResource("2_rtcqr")
 
-[node name="spawn_another" type="Timer" parent="."]
+[node name="spawn_attempt" type="Timer" parent="."]
 autostart = true
 
-[connection signal="timeout" from="spawn_another" to="." method="spawn"]
+[connection signal="timeout" from="spawn_attempt" to="." method="spawn"]

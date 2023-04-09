@@ -7,7 +7,6 @@ extends Area2D
 # Responsiblities:
 #	Create Area2D to detect slimes 
 #	Retrieve and logically organise a Tilemap
-#	Provide a Grid for alignment of ladders.
 
 
 func _ready():
@@ -22,7 +21,7 @@ func create_building(d):
 	var buildingHeight : int = clamp(ceil(d/2), 2, 9999) # Every six difficulty points, the height goes up 2 levels
 	buildingHeight = buildingHeight + (buildingHeight%2) # guarentee an even result
 	
-	var buildingWidth : int = clamp(ceil(d/2), 2, 6) 
+	var buildingWidth : int = clamp(ceil(d/2), 2, 4) 
 	buildingWidth = buildingWidth - (buildingWidth%2) # guarentee an even result
 	
 	print("width: "+str(buildingWidth))
