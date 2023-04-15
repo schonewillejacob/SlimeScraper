@@ -18,9 +18,7 @@ var debugcount = 0
 enum States {
 	Spawned,
 	Falling,
-	Ground,
-	Attached,
-	Attacking
+	Ground
 }
 var state : States
 
@@ -60,8 +58,7 @@ func process_movement():
 				await get_tree().create_timer(0.2).timeout
 				state = States.Falling
 				flagJumping = true
-		States.Attached:
-			pass
+
 
 
 func die():
@@ -70,5 +67,4 @@ func die():
 
 
 func hit_building():
-	set_collision_layer(4)
-	state = States.Attached
+	set_collision_layer_value(4, false)

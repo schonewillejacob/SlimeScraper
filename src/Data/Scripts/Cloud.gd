@@ -10,20 +10,33 @@ extends Node2D
 
 @onready var P = clamp(1 - (1/float(GameController.difficulty)), .25, 1 )
 
+var red_mod : float = 0
+
 func _ready():
 #	50/50 chance to flip xscale
 	var chance = randi()%2
 	if (chance):
 		sprite.scale = Vector2(-1,1)
-	spawn_attempt.start
+#	Begin timer
+	spawn_attempt.start()
+	
+	
+#	Set height
+	var Height : int = clamp(ceil(GameController.difficulty/2), 2, 9999) # Every six difficulty points, the height goes up 2 levels
+	Height = Height + (Height%2) # guarentee an even result
+	set_position(Vector2(get_global_position().x, 512 - ((Height+2)*96)))
+	
 
 func _process(_delta):
 	transform.origin.x += 1
 	wrap_around(wrap_xpos - wrap_width, wrap_xpos + wrap_width)
+	red_mod = clamp(red_mod-0.001, .75, 1)
+	sprite.modulate = Color(1, red_mod, 1)
 
 func spawn():
-	spawn_attempt.start
+	spawn_attempt.start()
 	if randf() <= P:
+		red_mod = 1
 		var slime_inst = slime_class.instantiate()
 		slime_inst.transform.origin.x = transform.origin.x
 		slime_inst.transform.origin.y = transform.origin.y

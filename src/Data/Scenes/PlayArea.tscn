@@ -17,7 +17,7 @@ position = Vector2(558, 183)
 [node name="stage" type="Node" parent="."]
 
 [node name="Building" parent="stage" instance=ExtResource("3_cthy5")]
-position = Vector2(568, 512)
+position = Vector2(584, 512)
 
 [node name="Floor" parent="stage" instance=ExtResource("3_iqxc3")]
 position = Vector2(570, 1184)

@@ -15,4 +15,5 @@ func load_score():
 	if FileAccess.file_exists(save_path):
 		var f = FileAccess.open(save_path, FileAccess.READ)
 		var content = f.get_as_text()
+		print(content)
 		f.close()

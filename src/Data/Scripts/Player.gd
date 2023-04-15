@@ -71,23 +71,23 @@ func process_movement(delta):
 
 
 func process_collision(slide_count):
-#	print(str(GameController.enemy_list)+"\n")
-#	Check for hitting an enemy.
 	if state == States.Recovering: return
 
 	for i in range(slide_count):
 		var slide_collider = get_slide_collision(i).get_collider()
-#		Guard Clause.
-		if !slide_collider.is_in_group("Enemy"): break
-#		Determine outcome.
-		if (slide_collider.get_global_position().y - get_global_position().y) > 0:
-			bounce()
-			slide_collider.die()
-		else:
-			$recovery_timer.start()
-			state = States.Recovering
-			bounce_direction(Vector2( sign(get_global_position().x - slide_collider.get_global_position().x), -1))#left or right?	
-			slide_collider.apply_impulse(Vector2(randfn(0.0,1.0), -300))
+
+#		Check for hitting an enemy.
+		if slide_collider.is_in_group("Enemy"): 
+			if (slide_collider.get_global_position().y - get_global_position().y) > 0:
+				bounce()
+				slide_collider.die()
+			else:
+				$recovery_timer.start()
+				$Sprite2D.modulate = Color(1,.5,.5)
+				state = States.Recovering
+				bounce_direction(Vector2( sign(get_global_position().x - slide_collider.get_global_position().x), -1))#left or right?	
+				slide_collider.apply_impulse(Vector2(randfn(0.0,1.0), -300))
+
 
 
 func bounce():
@@ -102,6 +102,6 @@ func wrap_around(left : int, right : int):
 	elif get_global_position().x < left:
 		set_position(Vector2(right, get_global_position().y))
 
-
 func recovery_timeout():
+	$Sprite2D.modulate = Color(1,1,1)
 	state = States.Idle

@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var map = $BaseMap
-
+@onready var window_class = preload("res://Data/Scenes/Window.tscn")
 
 
 # Responsiblities:
@@ -31,8 +31,7 @@ func create_building(d):
 
 #	base:
 	map.set_cell(2, Vector2i(3*-floor(buildingWidth/2)-1, 0), 0, Vector2i(0,3)) # left edge
-	map.set_cell(2, Vector2i(3*floor(buildingWidth/2)   , 0), 0, Vector2i(1,3)) # right fill
-	map.set_cell(2, Vector2i(3*floor(buildingWidth/2)+1 , 0), 0, Vector2i(2,3)) # right edge
+	map.set_cell(2, Vector2i(3*floor(buildingWidth/2) , 0), 0, Vector2i(2,3)) # right edge
 	for i in buildingWidth: # 3x for spaces
 		var startingPosX = (i-floor(buildingWidth/2))*3
 		map.set_cell(2, Vector2i(startingPosX,0),   0, Vector2i(1,3))
@@ -47,11 +46,24 @@ func create_building(d):
 			for k in 3:
 				map.set_cell(2, Vector2i(startingPosX,startingPosY+k),   0, Vector2i(1,1))
 				map.set_cell(2, Vector2i(startingPosX+1,startingPosY+k), 0, Vector2i(1,1))
+				
+#				Window
+				if k==1:
+					if randf() < .5:
+						var inst_window = window_class.instantiate()
+						inst_window.set_global_position(map.map_to_local(Vector2i(startingPosX,startingPosY+k)) + transform.origin)
+						inst_window.add_to_group("Civilian")
+						inst_window.set_collision_layer_value(5, true)
+						get_parent().add_child.call_deferred(inst_window)
+						
+						map.set_cell(3, Vector2i(startingPosX+1,startingPosY+k), 0, Vector2i(1,4))
+					else:
+						map.set_cell(3, Vector2i(startingPosX+1,startingPosY+k), 0, Vector2i(0,4))
+				
 				map.set_cell(2, Vector2i(startingPosX+2,startingPosY+k), 0, Vector2i(1,1))
 		for k in 3:
 			map.set_cell(2, Vector2i(3*-floor(buildingWidth/2), startingPosY+k), 0, Vector2i(0,1)) # left edge
-			map.set_cell(2, Vector2i(3*floor(buildingWidth/2)-1   , startingPosY+k), 0, Vector2i(1,1)) # right fill
-			map.set_cell(2, Vector2i(3*floor(buildingWidth/2) , startingPosY+k), 0, Vector2i(2,1)) # right edge
+			map.set_cell(2, Vector2i(3*floor(buildingWidth/2)-1 , startingPosY+k), 0, Vector2i(2,1)) # right edge
 	
 #	roof
 	for i in buildingWidth: # cap off the building
@@ -60,10 +72,10 @@ func create_building(d):
 		map.set_cell(2, Vector2i(startingPosX+1,-(buildingHeight*3)-1), 0, Vector2i(1,0))
 		map.set_cell(2, Vector2i(startingPosX+2,-(buildingHeight*3)-1), 0, Vector2i(1,0))
 	map.set_cell(2, Vector2i(3*-floor(buildingWidth/2), -(buildingHeight*3)-1), 0, Vector2i(0,0)) # left edge
-	map.set_cell(2, Vector2i(3*floor(buildingWidth/2) , -(buildingHeight*3)-1), 0, Vector2i(2,0)) # right edge
+	map.set_cell(2, Vector2i(3*floor(buildingWidth/2)-1 , -(buildingHeight*3)-1), 0, Vector2i(2,0)) # right edge
 	
 #	collision shape based on width/height
-	var shape_width = ((buildingWidth * 3)+1) * 32
+	var shape_width = ((buildingWidth * 3)) * 32
 	var shape_height = ((buildingHeight * 3) * 32)*2
 	
 	$CollisionShape2D.set_shape(RectangleShape2D.new())
