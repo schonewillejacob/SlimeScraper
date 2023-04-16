@@ -1,13 +1,14 @@
+Control
+AnimatedSprite2D
+StaticBody2D
 Timer
 CollisionShape2D
 Area2D
-AnimatedSprite2D
 Sprite2D
 HBoxContainer
 SpinBox
 Button
 VBoxContainer
-Control
 Node
 AnimationPlayer
 AudioStreamPlayer
@@ -17,5 +18,4 @@ TileMap
 RigidBody2D
 Node2D
 RayCast2D
-StaticBody2D
 CharacterBody2D

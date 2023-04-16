@@ -1,26 +1,22 @@
-class_name Slime
 extends RigidBody2D
 
 
-
+# Movement
 const RAIN_DIRECTION := Vector2(-1.0, 1.0)
 const STRENGTH : float = 16.0
-
-
 var flagSpawned : bool = true
 var flagJumping : bool = true
-
-var debugcount = 0
-
 # This is, by default, the midpoint of the screen.
 @onready var target : Vector2 = Vector2(get_viewport_rect().size.x / 2, 0)
-
+#State Machine 
 enum States {
 	Spawned,
 	Falling,
-	Ground
+	Ground,
+	Attached
 }
 var state : States
+
 
 
 func _init():
@@ -31,13 +27,13 @@ func _physics_process(_delta):
 	process_movement()
 
 
+
 func process_movement():
 	match (state):
 		States.Falling: 
 #			Just came from the cloud, should look ~45deg. due to speed.
 			if flagSpawned: 
 				apply_central_impulse(RAIN_DIRECTION * STRENGTH)
-			
 #			This runs when the creature stops against the ground.
 			if linear_velocity.y < 0.01:
 				if (abs(linear_velocity.x) < 1) || flagSpawned:
@@ -48,23 +44,28 @@ func process_movement():
 #			Perform jump, change state, prevent multiple jump impulses w/ flag.
 			if flagJumping:
 				flagJumping = false
-				
-#				Wait for 1.0s, then...
-				await get_tree().create_timer(1.0).timeout
+				await get_tree().create_timer(1.0).timeout # Wait for 1.0s, then...
 				var direction = STRENGTH*20 * Vector2(sign(target.x - transform.origin.x), -1)
 				apply_central_impulse(direction)
-				
-#				Wait for 0.2s, then...
-				await get_tree().create_timer(0.2).timeout
+				await get_tree().create_timer(0.2).timeout # Wait for 0.2s, then...
 				state = States.Falling
 				flagJumping = true
-
-
+		States.Attached:
+#			Move towards the target.
+			pass
 
 func die():
 	queue_free()
 	pass
 
-
-func hit_building():
+func hit_building(nearest_civilian_direction):
+#	Stop/Sleep/Remove building mask
 	set_collision_layer_value(4, false)
+#	target = nearest_civilian_direction
+	state = States.Attached
+	sleeping = true
+
+func knocked_off():
+	if is_sleeping(): 
+		print("Knocked off!")
+		state = States.Falling

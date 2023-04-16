@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var sprite : Sprite2D = $sprite
 @onready var spawn_attempt : Timer = $spawn_attempt
-@onready var controller = $GameController
 @onready var slime_class = preload("res://Data/Scenes/Slime.tscn")
 
 @onready var wrap_width = (get_viewport_rect().size.x / 2) + 32 # This value is equal to the width of the player.
@@ -24,7 +23,7 @@ func _ready():
 #	Set height
 	var Height : int = clamp(ceil(GameController.difficulty/2), 2, 9999) # Every six difficulty points, the height goes up 2 levels
 	Height = Height + (Height%2) # guarentee an even result
-	set_position(Vector2(get_global_position().x, 512 - ((Height+2)*96)))
+	set_position(Vector2(get_global_position().x + (randi()%400 - 200), 512 - ((Height+2)*96)))
 	
 
 func _process(_delta):

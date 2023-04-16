@@ -82,3 +82,5 @@ debug_color = Color(0.686275, 0.0705882, 0.0941176, 0.419608)
 libraries = {
 "": SubResource("AnimationLibrary_p11g1")
 }
+
+[connection signal="sleeping_state_changed" from="." to="." method="knocked_off"]

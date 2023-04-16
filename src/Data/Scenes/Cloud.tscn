@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Data/Scripts/Cloud.gd" id="1_ovjl3"]
 [ext_resource type="Texture2D" uid="uid://csudlgryq5yxg" path="res://Assets/Graphics/Sprites/cloud.png" id="2_rtcqr"]
 
-[node name="Cloud" type="Node2D"]
+[node name="Cloud" type="Node2D" groups=["Cloud"]]
 script = ExtResource("1_ovjl3")
 
 [node name="sprite" type="Sprite2D" parent="."]
