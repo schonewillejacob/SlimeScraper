@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1n3k4tvfl47t"]
+
+[ext_resource type="Script" path="res://Data/Scripts/Main.gd" id="1_luhap"]
+[ext_resource type="AudioStream" uid="uid://c4vev0fcgl1c0" path="res://Assets/Audio/main.wav" id="3_hl3o2"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_luhap")
+
+[node name="Menu" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(256, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 863.0
+offset_right = 369.0
+offset_bottom = 951.0
+grow_vertical = 0
+scale = Vector2(0.994902, 1.00848)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
+layout_mode = 2
+
+[node name="start" type="Button" parent="Menu/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Start at difficulty:"
+
+[node name="SpinBox" type="SpinBox" parent="Menu/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="options" type="Button" parent="Menu"]
+visible = false
+layout_mode = 2
+text = "Options"
+
+[node name="exit" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Exit
+"
+
+[node name="ASP" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hl3o2")
+autoplay = true
+
+[connection signal="pressed" from="Menu/HBoxContainer/start" to="." method="start_game"]
+[connection signal="pressed" from="Menu/options" to="." method="options"]
+[connection signal="pressed" from="Menu/exit" to="." method="exit_game"]

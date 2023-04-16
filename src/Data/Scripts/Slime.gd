@@ -1,6 +1,10 @@
 extends RigidBody2D
+# Sprite credited to calciumtrice of opengameart
+# https://opengameart.org/content/animated-slime
 
 
+# loads
+@onready var sprite = $sprite
 # Movement
 const RAIN_DIRECTION := Vector2(-1.0, 1.0)
 const STRENGTH : float = 16.0
@@ -25,6 +29,7 @@ func _init():
 
 func _physics_process(_delta):
 	process_movement()
+	flip()
 
 
 
@@ -44,12 +49,17 @@ func process_movement():
 #			Perform jump, change state, prevent multiple jump impulses w/ flag.
 			if flagJumping:
 				flagJumping = false
+				
 				await get_tree().create_timer(1.0).timeout # Wait for 1.0s, then...
 				var direction = STRENGTH*20 * Vector2(sign(target.x - transform.origin.x), -1)
 				apply_central_impulse(direction)
+				
 				await get_tree().create_timer(0.2).timeout # Wait for 0.2s, then...
-				state = States.Falling
-				flagJumping = true
+				if state != States.Attached: 
+					set_collision_layer_value(4, true)
+				else: 
+					flagJumping = true
+					state = States.Falling
 		States.Attached:
 #			Move towards the target.
 			pass
@@ -57,6 +67,14 @@ func process_movement():
 func die():
 	queue_free()
 	pass
+
+func flip():
+	if abs(sign(linear_velocity.x)) > 0.1:
+		if sign(linear_velocity.x) > 0:
+			sprite.flip_h = false
+		else:
+			sprite.flip_h = true
+
 
 func hit_building(nearest_civilian_direction):
 #	Stop/Sleep/Remove building mask

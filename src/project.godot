@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SlimeScraper"
-run/main_scene="res://Data/Main.tscn"
+run/main_scene="res://Data/Scenes/Main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 

@@ -1,47 +1,51 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhuuw76udngo3"]
+[gd_scene load_steps=10 format=3 uid="uid://dhuuw76udngo3"]
 
 [ext_resource type="PackedScene" uid="uid://dlea8lco0wv1f" path="res://Data/Scenes/Player.tscn" id="2_tilqw"]
 [ext_resource type="PackedScene" uid="uid://c6loarmpx1hpt" path="res://Data/Scenes/Building.tscn" id="3_cthy5"]
 [ext_resource type="PackedScene" uid="uid://eh3ftx371nv6" path="res://Data/Scenes/Floor.tscn" id="3_iqxc3"]
 [ext_resource type="Script" path="res://Data/Scripts/Musicbox.gd" id="4_80uag"]
-[ext_resource type="AudioStream" uid="uid://c03fi028b3keb" path="res://Assets/Audio/SlimeIntro.mp3" id="4_wpd42"]
+[ext_resource type="AudioStream" uid="uid://c4vev0fcgl1c0" path="res://Assets/Audio/main.wav" id="4_kw2ke"]
 [ext_resource type="PackedScene" uid="uid://c5v5faouhqdpa" path="res://Data/Scenes/Cloud.tscn" id="5_g2g3w"]
 [ext_resource type="Script" path="res://Data/Scripts/CameraCarrier2D.gd" id="6_f53lg"]
+[ext_resource type="AudioStream" uid="uid://d45kbfubirvi" path="res://Assets/Audio/rain.wav" id="6_lpduh"]
+[ext_resource type="Script" path="res://Data/Scripts/RainPlayer.gd" id="7_x52aa"]
 
 [node name="PlayArea" type="Node2D"]
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="stage" type="Node" parent="."]
 
 [node name="Cloud" parent="stage" instance=ExtResource("5_g2g3w")]
-position = Vector2(558, 183)
+position = Vector2(271, 263)
 
 [node name="Building" parent="stage" instance=ExtResource("3_cthy5")]
-position = Vector2(584, 512)
+position = Vector2(297, 592)
 
 [node name="Floor" parent="stage" instance=ExtResource("3_iqxc3")]
-position = Vector2(570, 1184)
+position = Vector2(283, 1264)
 scale = Vector2(20, 20)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="stage"]
-stream = ExtResource("4_wpd42")
+stream = ExtResource("4_kw2ke")
 autoplay = true
+max_polyphony = 9
 script = ExtResource("4_80uag")
+
+[node name="rain_player" type="AudioStreamPlayer2D" parent="stage"]
+position = Vector2(283, 605)
+stream = ExtResource("6_lpduh")
+autoplay = true
+script = ExtResource("7_x52aa")
 
 [node name="player" type="Node" parent="."]
 
 [node name="CameraCarrier2D" type="Camera2D" parent="player"]
-position = Vector2(557, 400)
+position = Vector2(270, 480)
 script = ExtResource("6_f53lg")
 playerPath = NodePath("../Player")
 
 [node name="Player" parent="player" instance=ExtResource("2_tilqw")]
-position = Vector2(323, 506)
+position = Vector2(36, 586)
 camera_path = NodePath("../CameraCarrier2D")
 
 [connection signal="finished" from="stage/AudioStreamPlayer" to="stage/AudioStreamPlayer" method="restart_loop"]
+[connection signal="finished" from="stage/rain_player" to="stage/rain_player" method="restart_loop"]

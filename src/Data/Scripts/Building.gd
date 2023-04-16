@@ -23,11 +23,9 @@ func _physics_process(_delta):
 			for civs in civilian_list:
 				if nearest == null || body.global_position.distance_to(civs.global_position) < nearest:
 					nearest = civs.global_position.distance_to(body.global_position)
-				
-			
 			if nearest: 
 				body.hit_building(nearest)
-				print(nearest)
+#				print(nearest)
 
 
 
