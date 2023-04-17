@@ -74,7 +74,7 @@ func process_animation():
 func process_ui():
 #	Menuing
 	if(Input.is_action_just_pressed("user_decline")):
-		get_tree().change_scene_to_file("res://Data/Scenes/Main.tscn")
+		get_tree().change_scene_to_file("res://Data/Scenes/menus/RoundFail.tscn")
 #	Movement
 	if state == States.Recovering: # Guards against movement if state isn't right
 		return
@@ -110,6 +110,7 @@ func process_collision(slide_count):
 			if (slide_collider.get_global_position().y - get_global_position().y) > 0:
 				bounce()
 				slide_collider.die()
+				GameController.score += 25
 			else:
 				$recovery_timer.start()
 				sprite.modulate = Color(1,.5,.5)

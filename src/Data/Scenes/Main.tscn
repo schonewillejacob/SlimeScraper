@@ -1,23 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1n3k4tvfl47t"]
+[gd_scene load_steps=4 format=3 uid="uid://c1n3k4tvfl47t"]
 
 [ext_resource type="Script" path="res://Data/Scripts/Main.gd" id="1_luhap"]
 [ext_resource type="AudioStream" uid="uid://c4vev0fcgl1c0" path="res://Assets/Audio/main.wav" id="3_hl3o2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbum2"]
-bg_color = Color(0.25098, 0.45098, 0.501961, 1)
-corner_radius_top_left = 5
-corner_radius_bottom_right = 5
-shadow_size = 3
-shadow_offset = Vector2(4, 4)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ygsm"]
-
-[sub_resource type="Theme" id="Theme_3n1ot"]
-Button/font_sizes/font_size = 20
-Button/styles/normal = SubResource("StyleBoxFlat_nbum2")
-Button/styles/pressed = SubResource("StyleBoxFlat_4ygsm")
-RichTextLabel/colors/default_color = Color(0.388235, 0.819608, 0.972549, 1)
-RichTextLabel/font_sizes/normal_font_size = 82
+[ext_resource type="Theme" uid="uid://7b1l5s245aev" path="res://Data/Theme/Main.tres" id="3_tvrsi"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_luhap")
@@ -31,16 +16,16 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme = SubResource("Theme_3n1ot")
+theme = ExtResource("3_tvrsi")
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="background" type="ColorRect" parent="Control"]
 custom_minimum_size = Vector2(540, 960)
 layout_mode = 0
 offset_right = 540.0
 offset_bottom = 960.0
 color = Color(0, 0.247059, 0.247059, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+[node name="title" type="RichTextLabel" parent="Control"]
 custom_minimum_size = Vector2(540, 0)
 layout_mode = 0
 offset_top = 47.0
@@ -50,6 +35,41 @@ text = "Slime Scraper"
 fit_content = true
 scroll_active = false
 tab_size = 8
+
+[node name="highscores" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 195.0
+offset_right = 520.0
+offset_bottom = 235.0
+
+[node name="header" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "HIGHSCORES"
+
+[node name="seperator" type="HSeparator" parent="Control/highscores"]
+layout_mode = 2
+
+[node name="score_1" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 1"
+
+[node name="score_2" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 2"
+
+[node name="score_3" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 3"
+
+[node name="score_4" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 4"
+
+[node name="score_5" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 5"
 
 [node name="Menu" type="VBoxContainer" parent="Control"]
 custom_minimum_size = Vector2(256, 0)
@@ -77,15 +97,9 @@ custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 prefix = "Difficulty:"
 
-[node name="options" type="Button" parent="Control/Menu"]
-visible = false
-layout_mode = 2
-text = "Options"
-
 [node name="exit" type="Button" parent="Control/Menu"]
 layout_mode = 2
 text = "QUIT"
 
 [connection signal="pressed" from="Control/Menu/HBoxContainer/start" to="." method="start_game"]
-[connection signal="pressed" from="Control/Menu/options" to="." method="options"]
 [connection signal="pressed" from="Control/Menu/exit" to="." method="exit_game"]

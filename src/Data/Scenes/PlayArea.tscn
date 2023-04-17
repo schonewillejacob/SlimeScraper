@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Data/Scripts/RainPlayer.gd" id="7_x52aa"]
 
 [node name="PlayArea" type="Node2D"]
+position = Vector2(-3, -3)
 
 [node name="stage" type="Node" parent="."]
 

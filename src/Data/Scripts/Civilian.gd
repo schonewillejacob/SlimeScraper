@@ -45,8 +45,11 @@ func _physics_process(_delta):
 			rescue(awarded_score)
 #		Enemy Collisions
 		if body.is_in_group("Enemy"):
-			if body.state == body.States.Attached:
-				die()
+			die()
+	for area in get_overlapping_areas():
+		if area.is_in_group("Enemy"):
+			die()
+	
 
 func set_collision():
 	set_collision_layer_value(5, true)
@@ -59,10 +62,10 @@ func remove():
 	queue_free()
 
 func die():
-	GameController.health -= 1
+	GameController.score -= 15
 	remove()
 
 func rescue(points):
 	GameController.score += points
-	print("Rescued, "+str(points)+" points.")
+	GameController.civilians_rescued += 1
 	remove()

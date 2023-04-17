@@ -10,7 +10,6 @@ extends Area2D
 @onready var cloud_class = preload("res://Data/Scenes/Cloud.tscn")
 # Civilian mgmt
 var civilian_list = []
-var civilian_max : int = 0
 
 
 func _ready():

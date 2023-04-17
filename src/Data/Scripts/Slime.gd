@@ -5,6 +5,7 @@ extends RigidBody2D
 
 # loads
 @onready var sprite = $sprite
+@onready var class_huntingslime = preload("res://Data/Scenes/SlimeHunting.tscn")
 # Movement
 const RAIN_DIRECTION := Vector2(-1.0, 1.0)
 const STRENGTH : float = 16.0
@@ -32,8 +33,11 @@ func _physics_process(delta):
 	flip()
 
 
-
 func process_movement(delta):
+	if state == States.Attached:
+#		Move towards the target
+		if target: apply_central_impulse(target * delta * STRENGTH*10)
+		return
 	match (state):
 		States.Falling: 
 #			Just came from the cloud, should look ~45deg. due to speed.
@@ -60,14 +64,10 @@ func process_movement(delta):
 				else: 
 					flagJumping = true
 					state = States.Falling
-		States.Attached:
-#			Move towards the target.
-			if target: global_position += (target * delta)
-			pass
+		
 
 func die():
 	queue_free()
-	pass
 
 func flip():
 	if abs(sign(linear_velocity.x)) > 0.1:
@@ -78,13 +78,12 @@ func flip():
 
 
 func hit_building(nearest_civilian_direction):
-#	Stop/Sleep/Remove building mask
-	gravity_scale = 0
-	target = nearest_civilian_direction
-	set_collision_layer_value(4, false)
-	state = States.Attached
-	sleeping = true
-
+	var hunting_inst = class_huntingslime.instantiate()
+	hunting_inst.target = nearest_civilian_direction
+	hunting_inst.transform = transform
+	get_parent().add_child(hunting_inst)
+	die()
+	
 func knocked_off():
 	if state == States.Attached: 
 		print("Knocked off!")
