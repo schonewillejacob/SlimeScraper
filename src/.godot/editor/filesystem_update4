@@ -15,3 +15,9 @@ res://Data/Scripts/Building.gd
 res://Data/Scenes/Building.tscn
 res://Data/Scenes/Civilian.tscn
 res://Data/Scripts/RainPlayer.gd
+res://Data/Scripts/GameController.gd
+res://Data/Scripts/Civilian.gd
+res://Data/Scenes/rain.tscn
+res://Data/Scenes/Cloud.tscn
+res://Data/Scripts/Cloud.gd
+res://Data/Scripts/CameraCarrier2D.gd

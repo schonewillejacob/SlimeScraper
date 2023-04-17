@@ -1,8 +1,8 @@
 extends Node2D
 # This scene contains the main menu
 
-@onready var spinBox = $Menu/HBoxContainer/SpinBox
-@onready var audioPlayer = self.get_parent().get_node("ASP")
+@onready var spinBox = $Control/Menu/HBoxContainer/SpinBox
+@onready var audioPlayer = $ASP
 @onready var class_playArea = preload("res://Data/Scenes/PlayArea.tscn")
 @onready var save_path = "user://highscore.save"
 
@@ -30,5 +30,5 @@ func options():
 func start_game():
 	GameController.difficulty = spinBox.value
 	print("starting new game at diffculty "+str(GameController.difficulty))
-	
+	GameController.musicSync = audioPlayer.get_playback_position()
 	get_tree().change_scene_to_file("res://Data/Scenes/PlayArea.tscn")

@@ -186,7 +186,7 @@ tree_root = SubResource("AnimationNodeStateMachine_7sgye")
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_c5kwo")
-parameters/Jump/blend_position = -0.00508475
+parameters/Jump/blend_position = -0.254237
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

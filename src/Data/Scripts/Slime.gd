@@ -27,13 +27,13 @@ func _init():
 	apply_central_impulse(RAIN_DIRECTION * STRENGTH * 10)
 	state = States.Falling
 
-func _physics_process(_delta):
-	process_movement()
+func _physics_process(delta):
+	process_movement(delta)
 	flip()
 
 
 
-func process_movement():
+func process_movement(delta):
 	match (state):
 		States.Falling: 
 #			Just came from the cloud, should look ~45deg. due to speed.
@@ -62,6 +62,7 @@ func process_movement():
 					state = States.Falling
 		States.Attached:
 #			Move towards the target.
+			if target: global_position += (target * delta)
 			pass
 
 func die():
@@ -78,12 +79,14 @@ func flip():
 
 func hit_building(nearest_civilian_direction):
 #	Stop/Sleep/Remove building mask
+	gravity_scale = 0
+	target = nearest_civilian_direction
 	set_collision_layer_value(4, false)
-#	target = nearest_civilian_direction
 	state = States.Attached
 	sleeping = true
 
 func knocked_off():
-	if is_sleeping(): 
+	if state == States.Attached: 
 		print("Knocked off!")
+		gravity_scale = 0.8
 		state = States.Falling

@@ -7,6 +7,7 @@ extends Area2D
 # Loads
 @onready var map = $BaseMap
 @onready var civilian_class = preload("res://Data/Scenes/Civilian.tscn")
+@onready var cloud_class = preload("res://Data/Scenes/Cloud.tscn")
 # Civilian mgmt
 var civilian_list = []
 var civilian_max : int = 0
@@ -20,12 +21,11 @@ func _physics_process(_delta):
 	for body in get_overlapping_bodies():
 		if body.has_method("hit_building"): 
 			var nearest = null
-			for civs in civilian_list:
-				if nearest == null || body.global_position.distance_to(civs.global_position) < nearest:
-					nearest = civs.global_position.distance_to(body.global_position)
+			for civ in civilian_list:
+				if nearest == null || (body.global_position - civ.global_position) < nearest:
+					nearest = civ.global_position - body.global_position
 			if nearest: 
-				body.hit_building(nearest)
-#				print(nearest)
+				body.hit_building(nearest.normalized())
 
 
 
@@ -60,9 +60,9 @@ func create_building(d):
 				
 #				Window
 				if k==1:
-					if randf() < .25:
+					if randf() < .35:
 						var inst_civilian = civilian_class.instantiate()
-						civilian_max += 1
+						GameController.civilians_total += 1
 						inst_civilian.set_global_position(map.map_to_local(Vector2i(startingPosX,startingPosY+k)) + transform.origin)
 						inst_civilian.set_collision_layer_value(5, true)
 						inst_civilian._parent = self
@@ -91,7 +91,12 @@ func create_building(d):
 	var shape_height = ((buildingHeight * 3) * 32)*2
 	$CollisionShape2D.set_shape(RectangleShape2D.new())
 	$CollisionShape2D.shape.size = Vector2(shape_width,shape_height)
-	#	Guard clause: empty level
+#	create clouds
+	for c in ceil((GameController.difficulty+1)/16.0):
+		var cloud_inst = cloud_class.instantiate()
+		cloud_inst.transform = transform
+		add_child(cloud_inst)
+#	Guard clause: empty level
 	if civilian_list == []:
 		print("Reloading, empty civilian_list (guard triggered)")
 		reload_building()
@@ -99,6 +104,8 @@ func create_building(d):
 func reload_building():
 	map.clear() 									# Clear the tilemap
 	get_tree().call_group("Civilian","rescue",0) 	# Remove civilians
+	get_tree().call_group("Cloud","queue_free") 	# Remove civilians
 	civilian_list = []								# Empty list
-	civilian_max = 0
+	GameController.civilians_rescued = 0
+	GameController.civilians_total = 0
 	create_building(GameController.difficulty)		# Recreate building

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5v5faouhqdpa"]
+[gd_scene load_steps=4 format=3 uid="uid://c5v5faouhqdpa"]
 
 [ext_resource type="Script" path="res://Data/Scripts/Cloud.gd" id="1_ovjl3"]
 [ext_resource type="Texture2D" uid="uid://csudlgryq5yxg" path="res://Assets/Graphics/Sprites/cloud.png" id="2_rtcqr"]
+[ext_resource type="PackedScene" uid="uid://dmf7j18wj8qut" path="res://Data/Scenes/rain.tscn" id="3_3xrsh"]
 
 [node name="Cloud" type="Node2D" groups=["Cloud"]]
 script = ExtResource("1_ovjl3")
@@ -12,5 +13,9 @@ texture = ExtResource("2_rtcqr")
 
 [node name="spawn_attempt" type="Timer" parent="."]
 autostart = true
+
+[node name="rain" parent="." instance=ExtResource("3_3xrsh")]
+lifetime = 6.0
+visibility_rect = Rect2(-1000, -1000, 2000, 20000)
 
 [connection signal="timeout" from="spawn_attempt" to="." method="spawn"]

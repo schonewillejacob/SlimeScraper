@@ -53,13 +53,16 @@ func bounce_direction(hit_direction : Vector2):
 	velocity = (-JUMP_HEIGHT) * hit_direction.normalized()
 
 func process_animation():
+	if abs(sign(velocity.x)) > 0.1:
+		# Align to velocity
+		if sign(velocity.x) > 0:
+			sprite.flip_h = false
+		else:
+			sprite.flip_h = true
+	# Match sprite to state
 	match state:
-		_:
-			if abs(sign(velocity.x)) > 0.1:
-				if sign(velocity.x) > 0:
-					sprite.flip_h = false
-				else:
-					sprite.flip_h = true
+		States.Recovering:
+			at.get("parameters/playback").travel("Hurt")
 		States.Idle:
 			at.get("parameters/playback").travel("Idle")
 		States.Jump:
@@ -67,8 +70,6 @@ func process_animation():
 			at.set("parameters/Jump/blend_position", sign(velocity.y))
 		States.Run:
 			at.get("parameters/playback").travel("Run")
-		States.Recovering:
-			at.get("parameters/playback").travel("Hurt")
 
 func process_ui():
 #	Menuing
@@ -76,21 +77,25 @@ func process_ui():
 		get_tree().change_scene_to_file("res://Data/Scenes/Main.tscn")
 #	Movement
 	if state == States.Recovering: # Guards against movement if state isn't right
-		pass
+		return
 	x_axis = Input.get_axis("user_left", "user_right")
-	
 	jump = bool(Input.is_action_just_pressed("user_up") && is_on_floor())
 
 func process_movement(delta):
 #	Gravity.
 	velocity.y += GRAVITY * delta
-#	Jumping.
-	if jump and is_on_floor():
-		state = States.Jump
-		velocity.y = JUMP_HEIGHT
 #	Lateral speed.
 	if state != States.Recovering:
 		velocity.x = x_axis * SPEED
+		if is_on_floor():
+			if x_axis == 0.0:
+				state = States.Idle
+			else:
+				state = States.Run
+#	Jumping.
+	if jump:
+		state = States.Jump
+		velocity.y = JUMP_HEIGHT
 #	Move
 	move_and_slide()
 
@@ -109,6 +114,7 @@ func process_collision(slide_count):
 				$recovery_timer.start()
 				sprite.modulate = Color(1,.5,.5)
 				state = States.Recovering
+				x_axis = 0.0
 				bounce_direction(Vector2( sign(get_global_position().x - slide_collider.get_global_position().x), -1))#left or right?	
 				slide_collider.apply_impulse(Vector2(randfn(0.0,1.0), -300))
 

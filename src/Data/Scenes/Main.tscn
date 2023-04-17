@@ -1,49 +1,90 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1n3k4tvfl47t"]
+[gd_scene load_steps=6 format=3 uid="uid://c1n3k4tvfl47t"]
 
 [ext_resource type="Script" path="res://Data/Scripts/Main.gd" id="1_luhap"]
 [ext_resource type="AudioStream" uid="uid://c4vev0fcgl1c0" path="res://Assets/Audio/main.wav" id="3_hl3o2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbum2"]
+bg_color = Color(0.25098, 0.45098, 0.501961, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
+shadow_size = 3
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ygsm"]
+
+[sub_resource type="Theme" id="Theme_3n1ot"]
+Button/font_sizes/font_size = 20
+Button/styles/normal = SubResource("StyleBoxFlat_nbum2")
+Button/styles/pressed = SubResource("StyleBoxFlat_4ygsm")
+RichTextLabel/colors/default_color = Color(0.388235, 0.819608, 0.972549, 1)
+RichTextLabel/font_sizes/normal_font_size = 82
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_luhap")
-
-[node name="Menu" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(256, 0)
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 863.0
-offset_right = 369.0
-offset_bottom = 951.0
-grow_vertical = 0
-scale = Vector2(0.994902, 1.00848)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
-layout_mode = 2
-
-[node name="start" type="Button" parent="Menu/HBoxContainer"]
-custom_minimum_size = Vector2(128, 0)
-layout_mode = 2
-text = "Start at difficulty:"
-
-[node name="SpinBox" type="SpinBox" parent="Menu/HBoxContainer"]
-custom_minimum_size = Vector2(128, 0)
-layout_mode = 2
-
-[node name="options" type="Button" parent="Menu"]
-visible = false
-layout_mode = 2
-text = "Options"
-
-[node name="exit" type="Button" parent="Menu"]
-layout_mode = 2
-text = "Exit
-"
 
 [node name="ASP" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_hl3o2")
 autoplay = true
 
-[connection signal="pressed" from="Menu/HBoxContainer/start" to="." method="start_game"]
-[connection signal="pressed" from="Menu/options" to="." method="options"]
-[connection signal="pressed" from="Menu/exit" to="." method="exit_game"]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_3n1ot")
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+custom_minimum_size = Vector2(540, 960)
+offset_right = 540.0
+offset_bottom = 960.0
+color = Color(0, 0.247059, 0.247059, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+custom_minimum_size = Vector2(540, 0)
+layout_mode = 0
+offset_top = 47.0
+offset_right = 540.0
+offset_bottom = 160.0
+text = "Slime Scraper"
+fit_content = true
+scroll_active = false
+tab_size = 8
+
+[node name="Menu" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 825.0
+offset_right = 370.0
+offset_bottom = 913.0
+grow_vertical = 0
+scale = Vector2(0.994902, 1.00848)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Menu"]
+layout_mode = 2
+
+[node name="start" type="Button" parent="Control/Menu/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "START"
+
+[node name="SpinBox" type="SpinBox" parent="Control/Menu/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+prefix = "Difficulty:"
+
+[node name="options" type="Button" parent="Control/Menu"]
+visible = false
+layout_mode = 2
+text = "Options"
+
+[node name="exit" type="Button" parent="Control/Menu"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="Control/Menu/HBoxContainer/start" to="." method="start_game"]
+[connection signal="pressed" from="Control/Menu/options" to="." method="options"]
+[connection signal="pressed" from="Control/Menu/exit" to="." method="exit_game"]

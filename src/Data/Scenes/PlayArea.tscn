@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dhuuw76udngo3"]
+[gd_scene load_steps=9 format=3 uid="uid://dhuuw76udngo3"]
 
 [ext_resource type="PackedScene" uid="uid://dlea8lco0wv1f" path="res://Data/Scenes/Player.tscn" id="2_tilqw"]
 [ext_resource type="PackedScene" uid="uid://c6loarmpx1hpt" path="res://Data/Scenes/Building.tscn" id="3_cthy5"]
 [ext_resource type="PackedScene" uid="uid://eh3ftx371nv6" path="res://Data/Scenes/Floor.tscn" id="3_iqxc3"]
 [ext_resource type="Script" path="res://Data/Scripts/Musicbox.gd" id="4_80uag"]
 [ext_resource type="AudioStream" uid="uid://c4vev0fcgl1c0" path="res://Assets/Audio/main.wav" id="4_kw2ke"]
-[ext_resource type="PackedScene" uid="uid://c5v5faouhqdpa" path="res://Data/Scenes/Cloud.tscn" id="5_g2g3w"]
 [ext_resource type="Script" path="res://Data/Scripts/CameraCarrier2D.gd" id="6_f53lg"]
 [ext_resource type="AudioStream" uid="uid://d45kbfubirvi" path="res://Assets/Audio/rain.wav" id="6_lpduh"]
 [ext_resource type="Script" path="res://Data/Scripts/RainPlayer.gd" id="7_x52aa"]
@@ -13,9 +12,6 @@
 [node name="PlayArea" type="Node2D"]
 
 [node name="stage" type="Node" parent="."]
-
-[node name="Cloud" parent="stage" instance=ExtResource("5_g2g3w")]
-position = Vector2(271, 263)
 
 [node name="Building" parent="stage" instance=ExtResource("3_cthy5")]
 position = Vector2(297, 592)
@@ -30,8 +26,7 @@ autoplay = true
 max_polyphony = 9
 script = ExtResource("4_80uag")
 
-[node name="rain_player" type="AudioStreamPlayer2D" parent="stage"]
-position = Vector2(283, 605)
+[node name="rain_player" type="AudioStreamPlayer" parent="stage"]
 stream = ExtResource("6_lpduh")
 autoplay = true
 script = ExtResource("7_x52aa")

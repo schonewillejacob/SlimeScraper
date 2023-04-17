@@ -8,6 +8,9 @@ extends AudioStreamPlayer
 var flag_pitchDown : bool = true;
 var counter = 0
 
+func _ready():
+	seek(GameController.musicSync)
+
 func _process(delta):
 	if (flag_pitchDown):
 		pitch_scale -= 0.0005*counter
