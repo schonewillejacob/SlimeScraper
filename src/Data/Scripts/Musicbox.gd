@@ -11,7 +11,7 @@ var counter = 0
 func _ready():
 	seek(GameController.musicSync)
 
-func _process(delta):
+func _process(_delta):
 	if (flag_pitchDown):
 		pitch_scale -= 0.0005*counter
 		counter += .1

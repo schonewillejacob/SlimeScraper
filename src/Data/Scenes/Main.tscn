@@ -35,6 +35,7 @@ theme = SubResource("Theme_3n1ot")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 custom_minimum_size = Vector2(540, 960)
+layout_mode = 0
 offset_right = 540.0
 offset_bottom = 960.0
 color = Color(0, 0.247059, 0.247059, 1)

@@ -8,7 +8,7 @@ extends AudioStreamPlayer
 var flag_volumeUp : bool = true;
 var counter = 0
 
-func _process(delta):
+func _process(_delta):
 	if (flag_volumeUp):
 		volume_db += 0.005*counter
 		counter += .5
