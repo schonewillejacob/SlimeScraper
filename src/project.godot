@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SlimeScraper"
-run/main_scene="res://Data/Main.tscn"
+run/main_scene="res://Data/Scenes/Main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
@@ -21,8 +21,10 @@ GameController="*res://Data/Scripts/GameController.gd"
 
 [display]
 
-window/size/viewport_width=720
-window/size/viewport_height=800
+window/size/viewport_width=540
+window/size/viewport_height=960
+window/size/resizable=false
+window/size/borderless=true
 
 [input]
 
@@ -114,6 +116,8 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.490196, 0.301961, 0.521569, 1)
 environment/defaults/default_environment="res://default_env.tres"
 textures/canvas_textures/default_texture_filter=0
 quality/driver/driver_name="GLES2"

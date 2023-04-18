@@ -1,32 +1,81 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkewqhcwgs58t"]
+[gd_scene load_steps=18 format=3 uid="uid://cbpkb7rbdefe0"]
 
 [ext_resource type="Script" path="res://Data/Scripts/Slime.gd" id="1_h23ct"]
 [ext_resource type="PhysicsMaterial" uid="uid://6mp8xqncbk7w" path="res://Data/Materials/slippery.tres" id="1_tdouv"]
-[ext_resource type="Texture2D" uid="uid://o72a03hd218s" path="res://Assets/Graphics/Sprites/slime.png" id="2_kgyk7"]
+[ext_resource type="Texture2D" uid="uid://bofegqihp1cap" path="res://Assets/Graphics/Sprites/slime_sheet.png" id="3_8dcl6"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_snggs"]
-atlas = ExtResource("2_kgyk7")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7p2o"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(288, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5jk4u"]
-atlas = ExtResource("2_kgyk7")
-region = Rect2(64, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_m78vk"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(256, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bdxkr"]
-atlas = ExtResource("2_kgyk7")
-region = Rect2(128, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcer3"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5b12"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sdvm"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6ubh"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tb8vl"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpab0"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rm2xw"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2m6d"]
+atlas = ExtResource("3_8dcl6")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yyy5h"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_snggs")
+"texture": SubResource("AtlasTexture_f7p2o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5jk4u")
+"texture": SubResource("AtlasTexture_m78vk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bdxkr")
+"texture": SubResource("AtlasTexture_xcer3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5b12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sdvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6ubh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tb8vl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpab0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rm2xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2m6d")
 }],
 "loop": true,
 "name": &"idle",
@@ -34,8 +83,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dlo4t"]
-radius = 25.0
-height = 56.0
+radius = 5.0
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_vef1b"]
 resource_name = "windup"
@@ -66,14 +115,15 @@ lock_rotation = true
 angular_damp = 15.0
 script = ExtResource("1_h23ct")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, 8)
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_yyy5h")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.321338
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 15)
+position = Vector2(0, 1)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_dlo4t")
 debug_color = Color(0.686275, 0.0705882, 0.0941176, 0.419608)
@@ -82,3 +132,5 @@ debug_color = Color(0.686275, 0.0705882, 0.0941176, 0.419608)
 libraries = {
 "": SubResource("AnimationLibrary_p11g1")
 }
+
+[connection signal="sleeping_state_changed" from="." to="." method="knocked_off"]

@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://7b1l5s245aev"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbum2"]
+bg_color = Color(0.25098, 0.45098, 0.501961, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
+shadow_size = 3
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ygsm"]
+
+[resource]
+Button/font_sizes/font_size = 20
+Button/styles/normal = SubResource("StyleBoxFlat_nbum2")
+Button/styles/pressed = SubResource("StyleBoxFlat_4ygsm")
+RichTextLabel/colors/default_color = Color(0.388235, 0.819608, 0.972549, 1)
+RichTextLabel/font_sizes/normal_font_size = 82

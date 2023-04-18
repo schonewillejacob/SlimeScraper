@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://m1wwjpbwjhil"]
+
+[ext_resource type="Theme" uid="uid://7b1l5s245aev" path="res://Data/Theme/Main.tres" id="1_7byg0"]
+[ext_resource type="Script" path="res://Data/Scripts/RoundSuceed.gd" id="1_epctn"]
+
+[node name="RoundSucceed" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("1_7byg0")
+script = ExtResource("1_epctn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(540, 960)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0.247059, 0.247059, 1)
+
+[node name="title" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(500, 192)
+offset_left = 20.0
+offset_right = 520.0
+offset_bottom = 40.0
+text = "SUCCESS"
+
+[node name="continue_button" type="Button" parent="."]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 0
+offset_left = 142.0
+offset_top = 769.0
+offset_right = 398.0
+offset_bottom = 833.0
+text = "Continue"
+
+[connection signal="pressed" from="continue_button" to="." method="progress"]

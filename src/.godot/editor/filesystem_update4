@@ -1,2 +1,6 @@
 res://default_env.tres
-res://Data/Main.tscn
+res://Data/Scenes/Main.tscn
+res://Data/Theme/Main.tres
+res://Data/Scenes/Building.tscn
+res://Data/Scripts/Building.gd
+res://Data/Scripts/RoundFail.gd

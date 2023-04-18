@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://vlb6sbf83smf"]
+
+[ext_resource type="Theme" uid="uid://7b1l5s245aev" path="res://Data/Theme/Main.tres" id="1_2m5j6"]
+[ext_resource type="Script" path="res://Data/Scripts/RoundFail.gd" id="2_jihyj"]
+[ext_resource type="AudioStream" uid="uid://cce7ephb3tod0" path="res://Assets/Audio/snd_bump3.wav" id="3_n7oop"]
+
+[node name="RoundFail" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_2m5j6")
+script = ExtResource("2_jihyj")
+
+[node name="background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(540, 960)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.392157, 0.0313726, 0.219608, 1)
+
+[node name="points_label" type="Label" parent="."]
+process_mode = 3
+layout_mode = 0
+offset_left = 32.0
+offset_top = 120.0
+offset_right = 85.0
+offset_bottom = 146.0
+text = "Points:"
+
+[node name="title" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(500, 192)
+layout_mode = 0
+offset_left = 20.0
+offset_right = 520.0
+offset_bottom = 40.0
+text = "FINISHED"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_top = 806.0
+offset_right = 121.0
+offset_bottom = 846.0
+
+[node name="submit_button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(168, 0)
+layout_mode = 2
+text = "Submit"
+
+[node name="denied" type="AudioStreamPlayer" parent="HBoxContainer/submit_button"]
+stream = ExtResource("3_n7oop")
+
+[node name="player_name" type="TextEdit" parent="HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+placeholder_text = "name..."
+
+[connection signal="pressed" from="HBoxContainer/submit_button" to="." method="submit_score"]

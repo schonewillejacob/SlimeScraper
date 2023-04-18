@@ -1,0 +1,105 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1n3k4tvfl47t"]
+
+[ext_resource type="Script" path="res://Data/Scripts/Main.gd" id="1_luhap"]
+[ext_resource type="AudioStream" uid="uid://c4vev0fcgl1c0" path="res://Assets/Audio/main.wav" id="3_hl3o2"]
+[ext_resource type="Theme" uid="uid://7b1l5s245aev" path="res://Data/Theme/Main.tres" id="3_tvrsi"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_luhap")
+
+[node name="ASP" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hl3o2")
+autoplay = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("3_tvrsi")
+
+[node name="background" type="ColorRect" parent="Control"]
+custom_minimum_size = Vector2(540, 960)
+layout_mode = 0
+offset_right = 540.0
+offset_bottom = 960.0
+color = Color(0, 0.247059, 0.247059, 1)
+
+[node name="title" type="RichTextLabel" parent="Control"]
+custom_minimum_size = Vector2(540, 0)
+layout_mode = 0
+offset_top = 47.0
+offset_right = 540.0
+offset_bottom = 160.0
+text = "Slime Scraper"
+fit_content = true
+scroll_active = false
+tab_size = 8
+
+[node name="highscores" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 195.0
+offset_right = 520.0
+offset_bottom = 235.0
+
+[node name="header" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "LOCAL HIGHSCORES"
+
+[node name="seperator" type="HSeparator" parent="Control/highscores"]
+layout_mode = 2
+
+[node name="score_1" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 1"
+
+[node name="score_2" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 2"
+
+[node name="score_3" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 3"
+
+[node name="score_4" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 4"
+
+[node name="score_5" type="Label" parent="Control/highscores"]
+layout_mode = 2
+text = "SCORE 5"
+
+[node name="Menu" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 825.0
+offset_right = 370.0
+offset_bottom = 913.0
+grow_vertical = 0
+scale = Vector2(0.994902, 1.00848)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Menu"]
+layout_mode = 2
+
+[node name="start" type="Button" parent="Control/Menu/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "START"
+
+[node name="SpinBox" type="SpinBox" parent="Control/Menu/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+prefix = "Difficulty:"
+
+[node name="exit" type="Button" parent="Control/Menu"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="Control/Menu/HBoxContainer/start" to="." method="start_game"]
+[connection signal="pressed" from="Control/Menu/exit" to="." method="exit_game"]
