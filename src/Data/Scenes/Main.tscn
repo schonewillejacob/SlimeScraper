@@ -46,7 +46,7 @@ offset_bottom = 235.0
 
 [node name="header" type="Label" parent="Control/highscores"]
 layout_mode = 2
-text = "HIGHSCORES"
+text = "LOCAL HIGHSCORES"
 
 [node name="seperator" type="HSeparator" parent="Control/highscores"]
 layout_mode = 2

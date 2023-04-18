@@ -24,7 +24,7 @@ func _ready():
 func check_game():
 	if building.civilian_list == []:
 		print("Round ending...")
-		if float(civilians_rescued)/float(civilians_total) > 0.25:
+		if float(civilians_rescued)/float(civilians_total) > 0.65:
 			get_tree().change_scene_to_file(path_success)
 		else:
 			get_tree().change_scene_to_file(path_fail)

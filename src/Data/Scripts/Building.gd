@@ -19,10 +19,7 @@ func _ready():
 func _physics_process(_delta):
 	for body in get_overlapping_bodies():
 		if body.has_method("hit_building"): 
-			var nearest = null
-			for civ in civilian_list:
-				if nearest == null || (body.global_position - civ.global_position) < nearest:
-					nearest = civ.global_position - body.global_position
+			var nearest = civilian_list[randi()%civilian_list.size()].get_global_position() - body.get_global_position()
 			if nearest: 
 				body.hit_building(nearest.normalized())
 

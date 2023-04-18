@@ -12,13 +12,36 @@ extends Node2D
 	$Control/highscores/score_4,
 	$Control/highscores/score_5
 ]
-var try_count = 0
 @onready var class_playArea = preload("res://Data/Scenes/PlayArea.tscn")
 @onready var scores_path : String = "user://highscore.json"
 @onready var base_scores_path : String = "res://Data/Scripts/JSON/highscore.json"
 
 
-# Called when the node enters the scene tree for the first time.
+var base_score_file = {
+	"1" : {
+		"name":"n/a",
+		"score":0
+	},
+	"2" : {
+		"name":"n/a",
+		"score":0
+	},
+	"3" : {
+		"name":"n/a",
+		"score":0
+	},
+	"4" : {
+		"name":"n/a",
+		"score":0
+	},
+	"5" : {
+		"name":"n/a",
+		"score":0
+	}
+}
+
+
+
 func _ready():
 #	This should access highscores, check the top result, and have it's max be that value.
 	spinBox.max_value = 20.0 
@@ -37,15 +60,12 @@ func fill_score_labels():
 				var score_string = str(json_as_dict[entry].score) + " - " +json_as_dict[entry].name 
 				score_labels[int(entry)-1].text = score_string
 	else:
-		print("File not present, loading default...")
-		if FileAccess.file_exists(base_scores_path):
-			var json_as_text = FileAccess.get_file_as_string(scores_path)
-			var json_as_dict = JSON.parse_string(json_as_text)
-			try_count += 1
-			if try_count > 2:
-				print("ERROR: try_count exceeded, base highscore.json missing?")
-				return
-			fill_score_labels()
+		print("File not present, creating default...")
+		var new_file = FileAccess.open(scores_path, FileAccess.WRITE)
+		new_file.store_line(var_to_str(base_score_file))
+		new_file.close()
+		fill_score_labels()
+
 
 
 func exit_game():
